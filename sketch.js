@@ -58,11 +58,11 @@ let highmidSmooth = 0;
 
 // preload all sound files
 function preload() {
-  song = loadSound("mainsong.mp3");
-  radar = loadSound("radar.mp3");
-  metallic = loadSound("metallic.mp3");
-  tremolo = loadSound("tremolo.mp3");
-  stinger = loadSound("stinger.mp3");
+  song = loadSound("music/mainsong.mp3");
+  radar = loadSound("music/radar.mp3");
+  metallic = loadSound("music/metallic.mp3");
+  tremolo = loadSound("music/tremolo.mp3");
+  stinger = loadSound("music/stinger.mp3");
 }
 
 function setup() {
