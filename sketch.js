@@ -58,11 +58,11 @@ let highmidSmooth = 0;
 
 // preload all sound files
 function preload() {
-  song = loadSound("music/mainsong.mp3");
-  radar = loadSound("music/radar.mp3");
-  metallic = loadSound("music/metallic.mp3");
-  tremolo = loadSound("music/tremolo.mp3");
-  stinger = loadSound("music/stinger.mp3");
+  song = loadSound("mainsong.mp3");
+  radar = loadSound("radar.mp3");
+  metallic = loadSound("metallic.mp3");
+  tremolo = loadSound("tremolo.mp3");
+  stinger = loadSound("stinger.mp3");
 }
 
 function setup() {
@@ -79,7 +79,7 @@ function setup() {
   flowfield = new Array(cols * rows);
 
   // create 300 particle objects in the flow field
-  for (let i = 0; i < 300; i++) {
+  for (let i = 0; i < 350; i++) {
     particles[i] = new Particle();
   }
   background(0);
@@ -119,11 +119,11 @@ function draw() {
     for (let x = 0; x < cols; x++) {
       let index = x + y * cols;
       // high-mid frequencies increase angular variation
-      let angle = noise(xoff, yoff, zoff) * TWO_PI * (2 + highmidNorm * 10);
+      let angle = noise(xoff, yoff, zoff) * TWO_PI * (2 + highmidNorm * 100);
       // create vector from the angle
       let v = p5.Vector.fromAngle(angle);
       // bass frequencies control vector magnitude
-      let mag = 0.5 + bassNorm * 3.0;
+      let mag = 0.5 + bassNorm * 10.0;
       v.setMag(mag);
       // v.setMag(1);
       flowfield[index] = v;
@@ -134,7 +134,7 @@ function draw() {
     yoff += inc;
   }
    // mid frequencies control how fast the field evolves
-  let zSpeed = 0.00005 + midNorm * 0.005;
+  let zSpeed = 0.00005 + midNorm * 0.0005;
   zoff += zSpeed;
 
   for (let i = 0; i < particles.length; i++) {
@@ -145,7 +145,18 @@ function draw() {
   }
 
 }
+
 function keyPressed() {
+   if (key == 'l') {
+
+    //get current full screen state https://p5js.org/reference/#/p5/fullscreen
+    let fs = fullscreen();
+
+    //switch it to the opposite of current value
+    console.log("Full screen getting set to: " + !fs);
+    fullscreen(!fs);
+  }
+
   if (key === "a" || key === "A") {
     aKeyDown = true;
     if (keyIsDown) {
@@ -198,4 +209,14 @@ function keyReleased() {
   if ((keyIsDown && key === "f") || key === "F") {
     stinger.stop();
   }
+}
+
+function windowResized() {
+  //resize our canvas to the width and height of our browser window
+  resizeCanvas(windowWidth, windowHeight);
+  background(0);
+
+
+  //update our variables
+  // diameter = width / 6;
 }
