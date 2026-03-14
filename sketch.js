@@ -79,7 +79,7 @@ function setup() {
   flowfield = new Array(cols * rows);
 
   // create 300 particle objects in the flow field
-  for (let i = 0; i < 350; i++) {
+  for (let i = 0; i < 300; i++) {
     particles[i] = new Particle();
   }
   background(0);
@@ -134,7 +134,7 @@ function draw() {
     yoff += inc;
   }
    // mid frequencies control how fast the field evolves
-  let zSpeed = 0.00005 + midNorm * 0.0005;
+  let zSpeed = 0.00005 + midNorm * 0.005;
   zoff += zSpeed;
 
   for (let i = 0; i < particles.length; i++) {
@@ -145,18 +145,7 @@ function draw() {
   }
 
 }
-
 function keyPressed() {
-   if (key == 'l') {
-
-    //get current full screen state https://p5js.org/reference/#/p5/fullscreen
-    let fs = fullscreen();
-
-    //switch it to the opposite of current value
-    console.log("Full screen getting set to: " + !fs);
-    fullscreen(!fs);
-  }
-
   if (key === "a" || key === "A") {
     aKeyDown = true;
     if (keyIsDown) {
@@ -209,14 +198,4 @@ function keyReleased() {
   if ((keyIsDown && key === "f") || key === "F") {
     stinger.stop();
   }
-}
-
-function windowResized() {
-  //resize our canvas to the width and height of our browser window
-  resizeCanvas(windowWidth, windowHeight);
-  background(0);
-
-
-  //update our variables
-  // diameter = width / 6;
 }
